@@ -3,6 +3,8 @@ const { faker } = require('@faker-js/faker');
 
 const app = express();
 
+app.use(express.json());
+
 const products = [];
 for (let i = 0; i < 4; i++) {
   products.push({
@@ -23,7 +25,7 @@ app.get('/products', (req, res) => {
   res.send(products);
 });
 
-// GET /products/:id ??????
+// GET /products/:id
 
 app.get('/products/:id', (req, res) => {
   // id is here a route param
@@ -41,7 +43,7 @@ app.get('/products/:id', (req, res) => {
   res.send(foundProduct);
 });
 
-// DELETE /products/:id ???
+// DELETE /products/:id
 app.delete('/products/:id', (req, res) => {
   const id = +req.params.id;
 
@@ -60,6 +62,25 @@ app.delete('/products/:id', (req, res) => {
   res.send({
     ok: true,
     data: deletedProduct,
+  });
+});
+
+// POST /products
+app.post('/products', (req, res) => {
+  const { name, price, desc } = req.body;
+
+  const product = {
+    id: products.length + 1,
+    name,
+    price,
+    desc,
+  };
+
+  products.push(product);
+
+  res.status(201).send({
+    ok: true,
+    data: product,
   });
 });
 
