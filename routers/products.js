@@ -41,19 +41,7 @@ router
 
 router
   .route('/:id')
-  .get((req, res) => {
-    const id = +req.params.id;
-
-    const foundProduct = products.find((product) => product.id === id);
-
-    if (!foundProduct)
-      return res.status(404).send({
-        ok: false,
-        message: 'Product not found',
-      });
-
-    res.send(foundProduct);
-  })
+  .get(fetchSingleProduct)
   .put(validatePayload, (req, res) => {
     const { id } = req.params;
 
