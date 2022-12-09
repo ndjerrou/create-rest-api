@@ -1,6 +1,6 @@
 const express = require('express');
 
-const productsRouter = require('./routers/products');
+const productsRouter = require('./products/products.router');
 const connectionDB = require('./db/connection');
 require('dotenv').config();
 
